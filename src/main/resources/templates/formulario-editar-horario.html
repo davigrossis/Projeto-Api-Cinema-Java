@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Editar Horário</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+</head>
+<body>
+<div class="container mt-5">
+    <h2 class="text-center">Editar Horário</h2>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form th:action="@{/horarios/editar}" method="post">
+                <input type="hidden" name="horarioAtual" th:value="${horarioAtual}">
+                <input type="hidden" name="nomeSalaAtual" th:value="${salaAtual}">
+
+                <div class="form-group">
+                    <label>Título do Filme:</label>
+                    <input type="text" name="titulo" th:value="${filme.titulo}" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Duração (min):</label>
+                    <input type="number" name="duracao" th:value="${filme.duracaoMinutos}" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Nova Sala:</label>
+                    <select name="nomeSala" class="form-control">
+                        <option th:each="s : ${salas}"
+                                th:value="${s.nome}"
+                                th:text="${s.nome}"
+                                th:selected="${s.nome == salaAtual}">
+                        </option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Novo Horário:</label>
+                    <input type="time" name="horarioNovo" th:value="${horarioAtual}" class="form-control" required>
+                </div>
+
+                <button type="submit" class="btn btn-success btn-block">Salvar</button>
+            </form>
+
+            <div th:if="${erro}" class="alert alert-danger mt-3" role="alert">
+                <p th:text="${erro}"></p>
+            </div>
+
+            <div class="text-center mt-3">
+                <a th:href="@{/horarios}" class="btn btn-secondary">Voltar</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

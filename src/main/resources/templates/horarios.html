@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Horários Agendados</title>
+  <link rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+</head>
+<body>
+<div class="container mt-5">
+  <h2 class="text-center">Horários Agendados</h2>
+  <table class="table table-striped table-bordered">
+    <thead class="thead-dark">
+    <tr>
+      <th>Filme</th>
+      <th>Duração</th>
+      <th>Sala</th>
+      <th>Horário</th>
+      <th>Ação</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="h : ${horarios}">
+      <td th:text="${h.filme.titulo}">Título</td>
+      <td th:text="${h.filme.duracaoMinutos + ' min'}">Duração</td>
+      <td th:text="${h.sala.nome}">Sala</td>
+      <td th:text="${h.horario}">Horário</td>
+      <td>
+        <div class="d-flex">
+          <form th:action="@{/horarios/remover}" method="post" class="mr-2">
+            <input type="hidden" name="horario" th:value="${h.horario}">
+            <input type="hidden" name="nomeSala" th:value="${h.sala.nome}">
+            <button type="submit" class="btn btn-danger btn-sm">Remover</button>
+          </form>
+          <form th:action="@{/horarios/editar}" method="get">
+            <input type="hidden" name="horario" th:value="${h.horario}">
+            <input type="hidden" name="nomeSala" th:value="${h.sala.nome}">
+            <button type="submit" class="btn btn-warning btn-sm">Editar</button>
+          </form>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <div class="d-flex justify-content-between">
+    <a th:href="@{/horarios/novo}" class="btn btn-primary">Agendar novo horário</a>
+    <a th:href="@{/}" class="btn btn-secondary">Voltar</a>
+  </div>
+</div>
+</body>
+</html>

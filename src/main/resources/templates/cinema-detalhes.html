@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Detalhes do Cinema</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <style>
+        body { background-color: #f8f9fa; }
+    </style>
+</head>
+<body>
+<div class="container mt-5">
+    <div class="text-center">
+        <h1 th:text="${cinema.nome}"></h1>
+        <p th:text="${cinema.endereco}" class="lead"></p>
+    </div>
+
+    <h2 class="mt-5">Salas</h2>
+    <table class="table table-bordered table-hover">
+        <thead class="thead-dark">
+        <tr>
+            <th>Nome</th>
+            <th>Capacidade</th>
+            <th>Tipo</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="sala : ${salas}">
+            <td th:text="${sala.nome}"></td>
+            <td th:text="${sala.capacidade}"></td>
+            <td th:text="${sala.tipoSala()}"></td>
+            <td>
+                <a th:href="@{/sala/excluir/{nome}(nome=${sala.nome})}" class="btn btn-danger btn-sm">Excluir</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="text-center">
+        <a th:href="@{/sala/nova}" class="btn btn-primary">Adicionar nova sala</a>
+        <a th:href="@{/horarios}" class="btn btn-secondary">Ver lista de horários</a>
+    </div>
+</div>
+</body>
+</html>
